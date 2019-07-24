@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken'); // import jwt
 
+const secret = require('../config/secrets');
 const Users = require('../users/users-model.js');
 
 // for endpoints beginning with /api/auth
@@ -52,7 +53,7 @@ function generateToken(user) {
     expiresIn: '1d'
   }
 
-  return jwt.sign(payload, 'THIS IS A REALLY LONG SECRET', options);
+  return jwt.sign(payload, secret.jwtSecret, options);
 }
 
 module.exports = router;
