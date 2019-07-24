@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-    const authHeaderIsPresent = req.authorization;
+    const token = req.headers.authorization;
 
-    if (authHeaderIsPresent) {
-        jwt.verify(authHeaderIsPresent, 'THIS IS A REALLY LONG SECRET', (err, decodedToken) => {
+    if (token) {
+        jwt.verify(token, 'THIS IS A REALLY LONG SECRET', (err, decodedToken) => {
             if (err) {
                 res.status(401).json({ you: 'can\'t touch this' });
             } else {
@@ -14,5 +14,7 @@ module.exports = (req, res, next) => {
                 next();
             }
         });
+    } else {
+        res.status(401).json({ you: 'SHALL NOT PASS!' });
     }
 };
