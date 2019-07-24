@@ -46,6 +46,7 @@ function generateToken(user) {
   const payload = {
     sub: user.id,
     username: user.username,
+    roles: ['Student']
     // Some other data here
   }
 
